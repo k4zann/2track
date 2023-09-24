@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/plyr.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full&skin=light&lazy=true"></script>
+    <title>Jerry</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar bg-body-tertiary">
+          <div class="container justify-content-center">
+            <a class="navbar-brand" href="#">
+              <img src="img/logo.png" alt="Bootstrap" width="40" height="44">
+            </a>
+          </div>
+        </nav>
+      </header>
+           <section class="hero">
+            <div class="container">
+              <div id="map" style="width:100%; height:500px"></div>
+              <script>
+                DG.then(function () {
+                    // change control position on touch devices
+                    var options = {
+                        center: [54.980156831455, 82.897440725094],
+                        zoom: 13,
+                        geoclicker: true,
+                        worldCopyJump: true,
+                        zoomControl: false,
+                        fullscreenControl: false
+                    };
+                    var query = parseQuery();
+                    var map = window.map = DG.map('map', getMapOptions(query, options));
+            
+                    var controlOptions = DG.Browser.mobile ? {position: 'bottomright'} : {};
+                    DG.control.zoom(controlOptions).addTo(map);
+                    DG.control.traffic(controlOptions).addTo(map);
+                    DG.control.location(controlOptions).addTo(map);
+                    DG.control.ruler(controlOptions).addTo(map);
+                    if (DG.screenfull.isAvailable()) {
+                        DG.control.fullscreen(controlOptions).addTo(map);
+                    }
+                    var balloonHTML = '<a href="http://www.2gis.ru/" target="_blank">\n\
+                    <img src="./img/buttons/2gis-logo.png" alt="2GIS" title="2GIS" width="154" height="66" style="border: none"></a>\n\
+                    <p>Компания «ДубльГИС»</p>Тел.: (383) 363-05-55<br />Адрес: г. Новосибирск, Карла Маркса площадь, 7<br />\n\
+                    (МФК «Сан Сити»), 13 этаж';
+            
+                    var marker = DG.marker([54.980156831455, 82.897440725094]).addTo(map).bindPopup(balloonHTML);
+            
+                    if (query.lng === undefined && query.lat === undefined) {
+                        // only open popup when no coordinates specified because it moves map to popup
+                        marker.openPopup();
+                    }
+            
+                    map.on('moveend', function() {
+                        if (!history.replaceState) {
+                            return; // ie <= 9
+                        }
+            
+                        var center = map.getCenter();
+                        history.replaceState({}, document.title,
+                            '?lng=' + center.lng.toFixed(5) +
+                            '&lat=' + center.lat.toFixed(5) +
+                            '&zoom=' + map.getZoom()
+                        );
+                    });
+                });
+            
+                function parseQuery() {
+                    var res = {};
+                    location.search.slice(1).split('&')
+                        .map(function(str) {
+                            return str.split('=')
+                        })
+                        .forEach(function(couple) {
+                            res[couple[0]] = couple[1];
+                        });
+                    return res;
+                }
+            
+                function getMapOptions(query, options) {
+                    if (query.lng !== undefined && query.lat !== undefined) {
+                        options.center = [parseFloat(query.lat), parseFloat(query.lng)];
+                    }
+                    if (query.zoom !== undefined) {
+                        options.zoom = parseInt(query.zoom, 10);
+                    }
+                    return options;
+                }
+            </script>
+            </div>
+        </section>
+        <!-- Hero Section End -->
+    
+        <!-- Product Section Begin -->
+        <section class="product spad">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="trending__product">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <div class="section-title">
+                                        <h4>Navigation</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div class="btn__all">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/buttons/bus.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/buttons/plane.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/buttons/taxi.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/buttons/hospital.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/buttons/burger.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/buttons/cult.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popular__product">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Guide X
+                                        </div>
+                                        <div class="card-body">
+                                            <!-- Chat output area -->
+                                            <div id="chat-output" class="mb-3"></div>
+                    
+                                            <!-- Message input form -->
+                                            <form id="message-form">
+                                                <div class="input-group">
+                                                    <input type="text" id="user-message" class="form-control" placeholder="Type your question...">
+                                                    <div class="input-group-append">
+                                                        <button type="submit" class="btn btn-primary">Send</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="recent__product">
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/recent/recent-1.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/recent/recent-2.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/recent/recent-3.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/recent/recent-4.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/recent/recent-5.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/recent/recent-6.jpg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="product__sidebar">
+                            <div class="product__sidebar__view">
+                                <div class="section-title">
+                                    <h5>Top News</h5>
+                                </div>
+                                <ul class="filter__controls">
+                                    <li class="active" data-filter="*">Day</li>
+                                    <li data-filter=".week">Week</li>
+                                    <li data-filter=".month">Month</li>
+                                    <li data-filter=".years">Years</li>
+                                </ul>
+                                <div class="filter__gallery">
+                                    <div class="product__sidebar__view__item set-bg mix day years"
+                                    data-setbg="https://static.forbes.kz/img/articles/00b29ea918249cc2f4ee2fa80830e870-small.jpg">
+                                    <div class="ep">8th June</div>
+                                    <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                    <h5><a href="#">Чемпионат Азии - 2023 по шахматам: за четыре тура до финиша</a></h5>
+                                </div>
+                                <div class="product__sidebar__view__item set-bg mix month week"
+                                data-setbg="https://forbes.kz/img/news/d363ab8eb720936d2a1d800badfba7fc-small.jpg">
+                                <div class="ep">30 April</div>
+                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                <h5><a href="#">10 фактов о Talan Towers</a></h5>
+                            </div>
+                            <div class="product__sidebar__view__item set-bg mix week years"
+                            data-setbg="https://forbes.kz/img/articles/e551c1b7a7ad0a2b70c7e7ec44bd51fb-small.jpg">
+                            <div class="ep">19th March</div>
+                            <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                            <h5><a href="#">Крутые виражи Кокжайлау</a></h5>
+                        </div>
+                        <div class="product__sidebar__view__item set-bg mix years month"
+                        data-setbg="https://static.forbes.kz/img/articles/84313fd06755fe2971c9facab2840071-small.jpg">
+                        <div class="ep">9th August</div>
+                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                        <h5><a href="#">Papa John’s: Как превратить кризис в трамплин для роста</a></h5>
+                    </div>
+                    <div class="product__sidebar__view__item set-bg mix day"
+                    data-setbg="https://static.forbes.kz/img/articles/06612132bad81248427d38b096ed394b-small.jpg">
+                    <div class="ep">23th Septeber</div>
+                    <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                    <h5><a href="#">Товаропроизводители Алматинской и Жетысуйской областей представляют свою продукцию на столичной ярмарке</a></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+    <!-- Product Section End -->
+    
+    <!-- Footer Section Begin -->
+    <footer class="footer">
+        <div class="page-up">
+            <a href="#" id="scrollToTopButton"><span class="arrow_carrot-up"></span></a>
+        </div>
+      </footer>
+
+  </body>
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/jquery.nice-select.min.js"></script>
+  <script src="js/mixitup.min.js"></script>
+  <script src="js/jquery.slicknav.js"></script>
+  <script src="js/main.js"></script>
+</html>
